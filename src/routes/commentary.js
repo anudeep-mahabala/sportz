@@ -45,9 +45,9 @@ commentaryRouter.get("/", async (req, res) => {
 
     res.json({ data });
   } catch (error) {
+    console.log("Failed to list commentary", error);
     res.status(500).json({
       error: "Failed to list commentary",
-      details: JSON.stringify(error.message),
     });
   }
 });
@@ -80,9 +80,9 @@ commentaryRouter.post("/", async (req, res) => {
 
     res.status(201).json({ data: entry });
   } catch (error) {
+    console.log("Failed to create commentary", error);
     res.status(500).json({
       error: "Failed to create commentary",
-      details: JSON.stringify(error.message),
     });
   }
 });
