@@ -11,13 +11,13 @@ import { desc } from "drizzle-orm";
 export const matchRouter = Router();
 
 matchRouter.get("/", async (req, res) => {
-  const parsed = listMatchesQuerySchema.safeParse(req.body);
-  if (!parsed)
+  const parsed = listMatchesQuerySchema.safeParse(req.query);
+  if (!parsed.success)
     return res.status(400).json({
       error: "Invalid payload",
       details: JSON.stringify(parsed.error),
     });
-  const limit = Math.min(parsed.data.limit ?? 50);
+  const limit = Math.min(parsed.data.limit ?? 50, 100);
 
   try {
     const data = await db
