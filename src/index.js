@@ -1,5 +1,6 @@
 import express from "express";
 import { matchRouter } from "./routes/matches.js";
+import { commentaryRouter } from "./routes/commentary.js";
 import "dotenv/config";
 import http from "http";
 import { attachWebSocketServer } from "./ws/server.js";
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use(securityMiddleware());
 
 app.use("/matches", matchRouter);
+app.use("/matches/:matchId/commentary", commentaryRouter);
 
 const { broadCastMatchCreated } = attachWebSocketServer(server);
 app.locals.broadCastMatchCreated = broadCastMatchCreated;
